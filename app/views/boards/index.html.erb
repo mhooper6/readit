@@ -1,0 +1,17 @@
+<h1>All Boards</h1>
+
+<div id="nav">
+  <% if current_user %>
+  <%= link_to 'Create a new board', new_board_path %>
+  <% end %>
+</div>
+
+<% @boards.each do |board| %>
+  <div>
+    <%= link_to board.title, board %>
+    <% if board.users.include? current_user %>
+    <%= link_to 'Edit board', edit_board_path(board) %>
+    <%= link_to 'Delete board', board, method: :delete, data: { confirm: 'Delete board?' } %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,8 @@
+<h1><%= @board.title %></h1>
+<h2><%= @board.description %></h2>
+<h3>Moderators</h3>
+<ul>
+	<% @board.users.each do |mod| %>
+	<li><%= mod.username %></li>
+	<% end %>
+</ul>
