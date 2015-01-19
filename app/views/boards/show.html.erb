@@ -1,8 +1,25 @@
 <h1><%= @board.title %></h1>
 <h2><%= @board.description %></h2>
+
 <h3>Moderators</h3>
 <ul>
 	<% @board.users.each do |mod| %>
 	<li><%= mod.username %></li>
 	<% end %>
 </ul>
+
+<h3>Posts</h3>
+<% @board.posts.each do |post| %>
+	<div>
+		<%= link_to post.title, post.link %>
+	</div>
+	<div>
+		<%= link_to 'Show', board_post_path(@board, post) %>
+		<% if post.user == current_user %>
+		<%= link_to 'Delete', board_post_path(@board, post), method: :delete, data: { confirm: 'Delete post?' } %>
+		<% end %>
+	</div>
+<% end %>
+<br>
+
+<%= link_to 'New post', new_board_post_path(@board) %>
