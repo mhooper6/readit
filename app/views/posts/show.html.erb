@@ -1,1 +1,21 @@
 <h1><%= link_to @post.title, @post.link%></h1>
+<h2>posted by <%= @post.user.username %></h2>
+<h2>Comments</h2>
+<% @post.comments.each do |comment| %>
+	<p>
+		<%= comment.body %> <br>
+		<strong>-- <%= comment.user.username %></strong> <br>
+		<% if current_user.comments.include?(comment) %>
+			<%= link_to 'Delete comment', board_post_comment_path(@board, @post, comment), method: :delete, data: { confirm: 'Are you sure? ' } %>
+		<% end %>
+	</p>
+<% end %>
+
+<% if current_user %>
+	<h3>Add a comment:</h3>
+	<%= render 'comments/form' %>
+<% end %>
+
+<%= link_to 'Back to ' + @board.title, board_path(@board) %>
+
+<%= current_user.username %>
