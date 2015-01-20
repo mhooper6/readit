@@ -10,6 +10,7 @@
 
 <div id="nav">
 	<% if current_user %>
+	Logged in as <strong><%= current_user.username %></strong>
 	<%= link_to "Edit Profile", edit_user_path(current_user.id) %>
 	<%= link_to "Logout", :logout %>
 	<% else %>
