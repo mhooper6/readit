@@ -5,4 +5,6 @@ class Board < ActiveRecord::Base
 
 	accepts_nested_attributes_for :moderators, allow_destroy: true
 	accepts_nested_attributes_for :posts, allow_destroy: true
+
+	validates :title, presence: true
 end
