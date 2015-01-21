@@ -1,31 +1,31 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @board.title %>
-</p>
+<% content_for :sidebar do %>
+  <h3>Welcome to <%= @board.title %></h3>
+  <h4><%= @board.description %></h4>
 
-<p>
-  <strong>Description:</strong>
-  <%= @board.description %>
-</p>
+  <% if current_user.subscribers.map(&:board).include? @board %>
+      <%= link_to 'Unsubscribe', subscribe_board_path(@board), method: :delete %>
+  <% else %>
+      <%= link_to 'Subscribe', subscribe_board_path(@board), method: :put %>
+  <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Moderators</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @board.moderators.each do |moderator| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= moderator.user.username %></td>
+        <th>Moderators</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @board.moderators.each do |moderator| %>
+        <tr>
+          <td><%= moderator.user.username %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
 
 <%= link_to 'Edit', edit_board_path(@board) %> |
 <%= link_to 'Back', boards_path %>

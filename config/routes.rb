@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :boards
+  resources :boards do
+    member do
+      put 'subscribe'
+      delete 'subscribe', to: 'boards#unsubscribe'
+    end
+  end
 
   resources :users, :user_sessions
   get 'login' => 'user_sessions#new', as: :login

@@ -1,5 +1,5 @@
 class BoardsController < ApplicationController
-  before_action :set_board, only: [:show, :edit, :update, :destroy]
+  before_action :set_board, only: [:show, :edit, :update, :destroy, :subscribe, :unsubscribe]
 
   # GET /boards
   # GET /boards.json
@@ -61,6 +61,41 @@ class BoardsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  # PUT /boards/1/subscribe
+  # add current user to board subscribers
+  def subscribe
+    unless current_user
+      format.html { redirect_to @board, notice: 'Must be logged in to subscribe to boards.' }
+    end
+    @board.subscribers.build(user: current_user)
+    respond_to do |format|
+      if @board.save
+        format.html { redirect_to @board, notice: 'Subscribed!' }
+      else
+        format.html { render @board, notice: 'Unable to subscribe.' }
+      end
+    end
+  end
+
+  # DELETE /boards/1/subscribe
+  # remove current user from board subscribers
+  def unsubscribe
+    unless current_user
+      format.html { redirect_to @board, notice: 'Must be logged in to unsubscribe from boards.' }
+    end
+    @subscriber = @board.subscribers.find_by user_id: current_user.id
+    Subscriber.destroy(@subscriber)
+
+    respond_to do |format|
+      if @board.save
+        format.html { redirect_to @board, notice: 'Unsubscribed.' }
+      else
+        format.html { render @board, notice: 'Unable to unsubscribe.' }
+      end
+    end
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
