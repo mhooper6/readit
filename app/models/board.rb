@@ -4,4 +4,6 @@ class Board < ActiveRecord::Base
 
 	has_many :subscribers
 	has_many :users, through: :subscribers
+
+	has_many :posts
 end

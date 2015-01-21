@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :boards do
+    resources :posts, shallow: true
     member do
       put 'subscribe'
       delete 'subscribe', to: 'boards#unsubscribe'

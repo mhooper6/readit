@@ -6,4 +6,6 @@ class User < ActiveRecord::Base
 
 	has_many :subscribers
 	has_many :boards, through: :subscribers
+
+	has_many :posts
 end

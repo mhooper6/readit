@@ -25,6 +25,24 @@
       <% end %>
     </tbody>
   </table>
+
+  <%= link_to 'Create a new post', new_board_post_path(@board) %>
+<% end %>
+
+<% unless @board.posts.any? %>
+  <h2>There aren't any posts yet!</h2>
+<% end %>
+
+<% @board.posts.each do |post| %>
+  <h2><%= link_to post.title, post.link %></h2>
+  <div>
+    submitted by <%= post.user.username %> |
+    <%= link_to 'Show', post_path(post.id) %>
+    <% if post.user == current_user %>
+      | <%= link_to 'Edit', edit_post_path(post.id) %> |
+      <%= link_to 'Delete', post_path(post.id), method: :delete, data: { confirm: 'Delete post?' } %>
+    <% end %>
+  </div>
 <% end %>
 
 <%= link_to 'Edit', edit_board_path(@board) %> |
