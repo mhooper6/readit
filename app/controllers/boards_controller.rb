@@ -26,6 +26,7 @@ class BoardsController < ApplicationController
   def create
     @board = Board.new(board_params)
     @board.moderators.build(user: current_user)
+    @board.subscribers.build(user: current_user)
 
     respond_to do |format|
       if @board.save
