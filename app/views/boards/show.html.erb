@@ -26,6 +26,8 @@
     </tbody>
   </table>
 
+  <h3><%= @board.subscribers.count %> subscribers.</h3>
+
   <%= link_to 'Create a new post', new_board_post_path(@board) %>
 <% end %>
 

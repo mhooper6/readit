@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  root 'frontpage#index'
+
+  get 'frontpage/index'
+
   resources :boards do
     resources :posts, shallow: true
     member do
