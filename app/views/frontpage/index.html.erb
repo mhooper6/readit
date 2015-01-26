@@ -1,6 +1,6 @@
 <h1>Top posts</h1>
 <% @posts.each do |post| %>
-	<h3><%= link_to post.title, post.link %></h3>
-	<h4>submitted to <%= link_to post.board.title, board_path(post.board) %> | 
-	<%= link_to 'show', post %></h4>
+	<h3><%= link_to post.title, post.link %> (<%= post.score %>)</h3>
+	<h4>submitted by <%= post.user.username %> to <%= link_to post.board.title, board_path(post.board) %> | 
+	<%= link_to 'Comments', post %></h4>
 <% end %>

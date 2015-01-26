@@ -3,18 +3,7 @@
 <h1><%= link_to @post.title, @post.link %> (<%= @post.score %>)</h1>
 
 <p>
-  <strong>Score:</strong>
-  <%= @post.score %>
-</p>
-
-<p>
-  <strong>Posted by:</strong>
-  <%= @post.user.username %>
-</p>
-
-<p>
-  <strong>Board:</strong>
-  <%= @post.board.title %>
+  posted by <strong><%= @post.user.username %></strong>
 </p>
 
 <% if @post.comments.any? %>
