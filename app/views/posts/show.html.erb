@@ -1,6 +1,13 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= link_to @post.title, @post.link %> (<%= @post.score %>)</h1>
+<div class="row">
+  <div class="col-md-2">
+    <h1><%= @post.score %></h1>
+  </div>
+  <div class="col-md-10">
+    <h1><%= link_to @post.title, @post.link %></h1>    
+  </div>
+</div>
 
 <p>
   posted by <strong><%= @post.user.username %></strong>
@@ -9,11 +16,22 @@
 <% if @post.comments.any? %>
   <h3>Comments</h3>
   <% @post.comments.each do |comment| %>
-    <p>
-      <strong><%= comment.user.username %></strong> (<%= comment.score %>)
-      <br>
-      <%= comment.body %>
-    </p>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-2">
+            <h4><%= comment.score %></h4>
+          </div>
+          <div class="col-md-10">
+            <p>
+              <strong><%= comment.user.username %></strong>
+              <br>
+              <%= comment.body %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   <% end %>
 <% else %>
   <h3>No comments yet!</h3>

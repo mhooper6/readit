@@ -1,6 +1,17 @@
 <h1>Top posts</h1>
 <% @posts.each do |post| %>
-	<h3><%= link_to post.title, post.link %> (<%= post.score %>)</h3>
-	<h4>submitted by <%= post.user.username %> to <%= link_to post.board.title, board_path(post.board) %> | 
-	<%= link_to 'Comments', post %></h4>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			<div class="row">
+				<div class="col-md-2">
+					<h1><%= post.score %></h1>
+				</div>
+				<div class="col-md-10">
+					<h3><%= link_to post.title, post.link %></h3>
+					<h4>submitted by <%= post.user.username %> to <%= link_to post.board.title, board_path(post.board) %> | 
+					<%= link_to 'Comments', post %></h4>
+				</div>
+			</div>
+		</div>
+	</div>
 <% end %>
