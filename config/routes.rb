@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get 'frontpage/index'
 
   resources :boards do
-    resources :posts, shallow: true
+    resources :posts, shallow: true do
+      resources :comments, shallow: true
+    end
     member do
       put 'subscribe'
       delete 'subscribe', to: 'boards#unsubscribe'

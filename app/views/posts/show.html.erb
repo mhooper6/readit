@@ -1,14 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
-
-<p>
-  <strong>Link:</strong>
-  <%= @post.link %>
-</p>
+<h1><%= link_to @post.title, @post.link %> (<%= @post.score %>)</h1>
 
 <p>
   <strong>Score:</strong>
@@ -16,7 +8,7 @@
 </p>
 
 <p>
-  <strong>User:</strong>
+  <strong>Posted by:</strong>
   <%= @post.user.username %>
 </p>
 
@@ -25,5 +17,31 @@
   <%= @post.board.title %>
 </p>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', board_path(@post.board) %>
+<% if @post.comments.any? %>
+  <h3>Comments</h3>
+  <% @post.comments.each do |comment| %>
+    <p>
+      <strong><%= comment.user.username %></strong> (<%= comment.score %>)
+      <br>
+      <%= comment.body %>
+    </p>
+  <% end %>
+<% else %>
+  <h3>No comments yet!</h3>
+<% end %>
+
+<h4>Add a comment</h4>
+<%= form_for([@post, @post.comments.build]) do |f| %>
+  <div class="field">
+    <%= f.text_area :body %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<% if @post.user == current_user %>
+  <%= link_to 'Edit', edit_post_path(@post) %> |
+<% end %>
+<%= link_to 'Back to ' + @post.board.title, board_path(@post.board) %>

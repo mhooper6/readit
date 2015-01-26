@@ -29,6 +29,11 @@
   <h3><%= @board.subscribers.count %> subscribers.</h3>
 
   <%= link_to 'Create a new post', new_board_post_path(@board) %>
+
+  <% if @board.moderators.map(&:user).include? current_user %>
+    <br>
+    <%= link_to 'Edit board', edit_board_path(@board) %>
+  <% end %>
 <% end %>
 
 <% unless @board.posts.any? %>
@@ -39,7 +44,7 @@
   <h2><%= link_to post.title, post.link %></h2>
   <div>
     submitted by <%= post.user.username %> |
-    <%= link_to 'Show', post_path(post.id) %>
+    <%= link_to 'Comments', post_path(post.id) %>
     <% if post.user == current_user %>
       | <%= link_to 'Edit', edit_post_path(post.id) %> |
       <%= link_to 'Delete', post_path(post.id), method: :delete, data: { confirm: 'Delete post?' } %>
@@ -47,5 +52,4 @@
   </div>
 <% end %>
 
-<%= link_to 'Edit', edit_board_path(@board) %> |
 <%= link_to 'Back', boards_path %>

@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
 	has_many :boards, through: :subscribers
 
 	has_many :posts
+	has_many :comments
 end
