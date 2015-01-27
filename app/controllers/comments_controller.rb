@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :edit, :update, :destroy]
+  before_action :set_comment, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
 
   # GET /comments
   # GET /comments.json
@@ -62,6 +62,18 @@ class CommentsController < ApplicationController
       format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def upvote
+    @comment.score += 1
+    @comment.save
+    redirect_to @comment.post
+  end
+
+  def downvote
+    @comment.score -= 1
+    @comment.save
+    redirect_to @comment.post
   end
 
   private

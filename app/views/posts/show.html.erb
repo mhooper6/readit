@@ -20,7 +20,15 @@
       <div class="panel-body">
         <div class="row">
           <div class="col-md-2">
-            <h4><%= comment.score %></h4>
+            <h4>
+              <%= link_to upvote_comment_path(comment.id), method: :post do  %>
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+              <% end %>
+              <%= link_to downvote_comment_path(comment.id), method: :post do  %>
+                <span class="glyphicon glyphicon-thumbs-down"></span>
+              <% end %>
+              <%= comment.score %>
+            </h4>
           </div>
           <div class="col-md-10">
             <p>

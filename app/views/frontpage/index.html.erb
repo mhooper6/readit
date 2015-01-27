@@ -4,7 +4,15 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-md-2">
-					<h1><%= post.score %></h1>
+					<h1>
+						<%= link_to upvote_post_path(post.id), method: :put do %>
+							<span class="glyphicon glyphicon-thumbs-up"></span>
+						<% end %>
+						<%= link_to downvote_post_path(post.id), method: :put do %>
+							<span class="glyphicon glyphicon-thumbs-down"></span>
+						<% end %>
+						<%= post.score %>
+					</h1>
 				</div>
 				<div class="col-md-10">
 					<h3><%= link_to post.title, post.link %></h3>

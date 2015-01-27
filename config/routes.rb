@@ -5,7 +5,16 @@ Rails.application.routes.draw do
 
   resources :boards do
     resources :posts, shallow: true do
-      resources :comments, shallow: true
+      resources :comments, shallow: true do
+        member do
+          post 'upvote'
+          post 'downvote'
+        end
+      end
+      member do
+        post 'upvote'
+        post 'downvote'
+      end
     end
     member do
       put 'subscribe'

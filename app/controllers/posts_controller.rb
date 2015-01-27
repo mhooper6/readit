@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
 
   # GET /posts
   # GET /posts.json
@@ -63,6 +63,18 @@ class PostsController < ApplicationController
       format.html { redirect_to board_url, notice: 'Post was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def upvote
+    @post.score += 1
+    @post.save
+    redirect_to @post
+  end
+
+  def downvote
+    @post.score -= 1
+    @post.save
+    redirect_to @post
   end
 
   private
